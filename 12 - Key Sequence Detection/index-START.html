@@ -7,6 +7,19 @@
 </head>
 <body>
 <script>
+  (function Solution() {
+    const inputs = []
+    const secret = 'lerex'
+    function handleKey(e) {
+      inputs.push(e.key)
+      console.log(inputs)
+      if(inputs.length === secret.length) {
+        if(inputs.join("") === secret) cornify_add()
+        inputs.shift()
+      }
+    }
+    window.addEventListener('keyup', handleKey)
+  })()
 </script>
 </body>
 </html>
