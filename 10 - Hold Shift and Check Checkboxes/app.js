@@ -1,14 +1,21 @@
-
-  const inbox = document.querySelector('.inbox')
+const inbox = document.querySelector('.inbox')
   const itemlList = [...inbox.children].map(item => item.children[0])
   console.log(itemlList);
   const state = {last: null}
   const onClick = function(e) {
-      console.log("checking")
-    if(e.target.tagName === 'INPUT') {
-        console.log(this.itemlList.indexOf(e.target))
+    if(e.target.tagName === 'INPUT' && e.target.checked) {
+        const index = itemlList.indexOf(e.target)
+        if(state.last === null) {
+          state.last = index
+          return
+        }
+        if(e.shiftKey) checkBetween(Math.min(index, state.last), Math.max(index, state.last))
+        state.last = index
     }
   }
-  document.addEventListener('click', console.log('fuck'))
-  inbox.addEventListener('click', this.onClick)
-  inbox.onclick = this.onClick
+  function checkBetween(start, end) {
+    for(let i = start; i <= end; i++) {
+      itemlList[i].checked = true
+    }
+  }
+  inbox.addEventListener('click', onClick)
