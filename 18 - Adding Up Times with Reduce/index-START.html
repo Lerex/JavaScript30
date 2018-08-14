@@ -182,6 +182,28 @@
     </li>
   </ul>
 <script>
+  const timeNodes = document.querySelectorAll('[data-time]')
+  const timeSum = [...timeNodes].reduce((sum, cur) => {
+    const [min, second] = cur.dataset.time.split(':').map(Number)
+    let carry = 0
+    sum.second += second
+    if(sum.second >= 60) {
+      sum.second -= 60
+      carry = 1
+    }
+    sum.minute += min + carry
+    if(sum.minute >= 60) {
+      sum.minute -= 60
+      carry = 1
+    }else {
+      carry = 0
+    }
+
+    sum.hour += carry
+    return sum
+    
+  }, {hour : 0, minute : 0, second : 0})
+  console.log(timeSum);
 </script>
 </body>
 </html>
